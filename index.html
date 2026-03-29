@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neon Tic-Tac-Toe: Cyber Grid</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 1. Loading Screen -->
+    <div id="loading-screen" class="screen bg-dark-radial flex-center full-viewport has-grid-bg">
+        <div class="neon-grid-bg"></div>
+
+        <div class="logo-container relative-z">
+            <span class="logo-x crimson-text">❌</span>
+            <span class="logo-o yellow-text">⭕</span>
+        </div>
+        <div class="loading-text pulsing relative-z">Loading...</div>
+        <button id="btn-start" class="btn yellow-bg btn-start drop-shadow-red hidden relative-z">START</button>
+    </div>
+
+    <!-- 2. Auth Screen -->
+    <div id="auth-screen" class="screen bg-cyber flex-center hidden full-viewport">
+        <div class="neon-box-cyan container-box">
+            <h2 class="neon-text-cyan">Player Registration</h2>
+            <form id="auth-form" class="auth-form">
+                <div class="input-group">
+                    <label for="reg-name">Name</label>
+                    <input type="text" id="reg-name" required placeholder="Enter Name">
+                </div>
+                <div class="input-group">
+                    <label for="reg-email">Email</label>
+                    <input type="email" id="reg-email" required placeholder="Enter Email">
+                </div>
+                <div class="input-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" required minlength="6" placeholder="Min. 6 chars">
+                </div>
+                <button type="submit" class="btn cyan-bg glow-btn">REGISTER / LOGIN</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Main Menu -->
+<div id="main-menu" class="screen bg-dark-radial flex-center hidden full-viewport has-grid-bg">
+    <div class="neon-grid-bg"></div>
+    
+    <div class="game-header relative-z" style="position: absolute; top: 0; width: 100%;">
+        <div class="spacer-icon"></div> 
+        <div class="matchup-title"></div> 
+        <button class="icon-btn header-icon btn-trigger-settings">⚙️</button>
+    </div>
+
+    <div class="menu-content container-box outline-box">
+        <h1 class="neon-title main-title">Cyber Grid</h1>
+        
+        <div class="carousel-container">
+            <button id="btn-prev-level" class="btn-arrow">⬅</button>
+            <div class="carousel-display">
+                <span id="label-difficulty" class="neon-text-green difficulty-text">Easy</span>
+            </div>
+            <button id="btn-next-level" class="btn-arrow">➡</button>
+        </div>
+        
+        <div class="menu-buttons column-flex">
+            <button id="btn-vs-ai" class="btn outline-btn cyan-outline">VS AI</button>
+            <button id="btn-vs-friend" class="btn outline-btn yellow-outline">VS Friend</button>
+            <button id="btn-leaderboard" class="btn outline-btn pink-outline mt-auth">Leaderboard</button>
+        </div>
+
+        <div class="player-info-menu">
+            <div class="player-info-row">
+                <span id="menu-player-name" class="pname">Player</span> 
+                <span id="menu-player-score" class="coin-score">🪙 0</span>
+            </div>
+            <button id="btn-logout" class="icon-btn text-btn text-red">Logout</button>
+        </div>
+    </div>
+</div>
+
+    <!-- 4. Gameplay Screen -->
+    <div id="gameplay-screen" class="screen bg-dark-radial flex-col hidden full-viewport has-grid-bg">
+        <div class="neon-grid-bg"></div>
+        <div class="game-header relative-z">
+            <button id="btn-back-menu" class="icon-btn header-icon">⬅</button>
+            <div id="game-matchup" class="neon-text-cyan matchup-title text-center">PLAYER vs AI</div>
+            <button id="btn-settings" class="icon-btn header-icon">⚙️</button>
+        </div>
+        
+        <div class="game-board-container relative-z flex-center grow-1 flex-col">
+            <div id="game-board" class="grid-board">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+                <div id="winning-line"></div>
+            </div>
+
+            <div class="game-controls-row mt-4">
+                <div id="turn-indicator" class="neon-text-cyan turn-text">Turn: ❌</div>
+                <button id="btn-undo" class="icon-btn rotate-icon action-btn hover-pop" title="Undo Move">↺</button>
+            </div>
+        </div>
+        
+        <div class="game-footer relative-z hidden"></div>
+    </div>
+
+    <!-- 5. Result Modal -->
+    <div id="result-modal" class="modal hidden overlay flex-center">
+        <div class="modal-content neon-box-blue text-center">
+            <div id="result-icon" class="result-icon pulse-slow">😢</div>
+            <h2 id="result-title" class="result-title">DRAW</h2>
+            <div id="result-score" class="result-score mb-4"></div>
+            <div class="modal-buttons row-flex" id="modal-buttons-container">
+                <button id="btn-modal-home" class="btn cyan-bg glow-btn-cyan">HOME</button>
+                <button id="btn-modal-replay" class="btn yellow-bg glow-btn-yellow">REPLAY</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Leaderboard Screen -->
+    <div id="leaderboard-screen" class="screen bg-dark-radial flex-col hidden full-viewport has-grid-bg">
+        <div class="neon-grid-bg"></div>
+        
+        <div class="game-header relative-z lb-header">
+            <button id="btn-back-leaderboard" class="icon-btn header-icon">⬅</button>
+            <div class="neon-text-pink title-text text-center glow-text-pink">LEADERBOARD</div>
+            <button class="icon-btn header-icon btn-trigger-settings">⚙️</button>
+        </div>
+
+        <div class="leaderboard-container relative-z grow-1">
+            <div class="leaderboard-list" id="leaderboard-list">
+                </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+ <div id="settings-modal" class="modal hidden overlay flex-center has-grid-modal">
+        <div class="neon-grid-bg modal-grid"></div> 
+        
+        <div class="modal-content neon-box-pink z-top text-center outline-box">
+    <h2 class="neon-text-pink mb-4">Settings</h2>
+    <div class="setting-row flex-between">
+        <span>Sound Effects</span>
+        <label class="switch">
+            <input type="checkbox" id="toggle-sfx" checked>
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <div class="setting-row flex-between">
+    <span>Background Music</span>
+    <label class="switch">
+            <input type="checkbox" id="toggle-bgm" checked>
+            <span class="slider round"></span>
+    </label>
+</div>
+<div class="modal-buttons mt-4 row-flex">
+        <button id="btn-close-settings" class="btn cyan-bg glow-btn-cyan w-100">CLOSE</button>
+        </div>
+    </div>
+</div>
+
+    
+    <script src="script.js"></script>
+</body>
+</html>
