@@ -12,7 +12,6 @@
 ## 👤 Identitas Developer
 
 * **Nama Lengkap**: Michael Julio Sonda
-* **Nama Panggilan**: Keren
 * **Institusi**: Universitas Kristen Satya Wacana (UKSW)
 * **Program Studi**: Teknik Informatika (Class of 2023)
 * **Keahlian**: Web Design & Development, UI/UX Design
