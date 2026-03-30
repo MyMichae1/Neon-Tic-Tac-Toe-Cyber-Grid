@@ -47,7 +47,7 @@
 ## 📁 Struktur Folder
 
 ```text
-Game Sonda/
+Neon Tic-Tac-Toe: Cyber Grid/
 ├── index.html          # File utama (Entry Point)
 ├── style.css           # Styling & Animasi Neon
 ├── script.js           # Logik Permainan & AI
